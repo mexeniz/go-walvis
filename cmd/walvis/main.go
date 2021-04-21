@@ -1,17 +1,18 @@
-package walvis
+package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"net/http"
-	"os"
 
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-echarts/go-echarts/v2/types"
 
-	"github.com/go-gota/gota/dataframe"
+	// "github.com/go-gota/gota/dataframe"
+	// log "github.com/sirupsen/logrus"
+	
+	"github.com/mexeniz/go-walvis/walvis"
 )
 
 // generate random data for line chart
@@ -46,14 +47,7 @@ func main() {
 	// http.HandleFunc("/", httpserver)
 	// http.ListenAndServe(":8081", nil)
 	csvPath := "/workspace/data/linepayreport_2021-03-21_101314.csv"
-	csvfile, err := os.Open(csvPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	df := dataframe.ReadCSV(csvfile,
-		dataframe.WithDelimiter(';'),
-		dataframe.HasHeader(true))
+	df := walvis.ReadCSVToDf(csvPath)
 	fmt.Println("Showing df")
 	fmt.Println("Df:", df)
 }
